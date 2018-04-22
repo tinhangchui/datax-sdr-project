@@ -18,13 +18,11 @@ class App(Frame):
 
     def CreateUI(self):
         tv = Treeview(self)
-        tv['columns'] = ('starttime', 'endtime', 'status')
+        tv['columns'] = ('frequency', 'status')
         tv.heading("#0", text='Sources', anchor='w')
         tv.column("#0", anchor="w")
-        tv.heading('starttime', text='Start Time')
-        tv.column('starttime', anchor='center', width=100)
-        tv.heading('endtime', text='End Time')
-        tv.column('endtime', anchor='center', width=100)
+        tv.heading('frequency', text='Start Time')
+        tv.column('frequency', anchor='center', width=100)
         tv.heading('status', text='Status')
         tv.column('status', anchor='center', width=100)
         tv.grid(sticky = (N,S,W,E))
@@ -33,8 +31,8 @@ class App(Frame):
         self.grid_columnconfigure(0, weight = 1)
 
     def LoadTable(self):
-        self.treeview.insert('', 'end', text="First", values=('10:00',
-                             '10:10', 'Ok'))
+        self.treeview.insert('', 'end', text="fm station 1", values=('98.6kHz', 'music'))
+        self.treeview.insert('', 'end', text="fm station 2", values=('101.0kHz', 'talking'))
 
 def main():
     root = Tk()
