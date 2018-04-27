@@ -5,7 +5,10 @@ import time
 import radio_identifier
 import music_identifier
 import tableTest
-def foo(msg):
+def sendMsg(msg):
+    """
+    Send msg to gqrx, assume gqrx has opened the server
+    """
     tn = telnetlib.Telnet('127.0.0.1', 7356)
     tn.write(('%s\n' % msg).encode('ascii'))
     response = tn.read_some().decode('ascii').strip()
@@ -14,12 +17,12 @@ def foo(msg):
 
 from tkinter import Tk, Label, Button
 
-class MyFirstGUI:
+class ConnectWindow:
     def __init__(self, master):
         self.master = master
-        master.title("A simple GUI")
+        master.title("DataX alien project!")
 
-        self.label = Label(master, text="This is our first GUI!")
+        self.label = Label(master, text="Please open gqrx and tcp server.")
         self.label.pack()
 
         self.greet_button = Button(master, text="Connect", command=self.scan_music)
@@ -37,12 +40,8 @@ class MyFirstGUI:
             time.sleep(5)           #record for 5 sec
             print('stop recording')
             foo('LOS')              #send stop recording signal
+
             if music_identifier.is_music('newfile'):
                 print("This is music!")
             else:
                 print("This is not music!")
-
-
-root = Tk()
-my_gui = MyFirstGUI(root)
-root.mainloop()

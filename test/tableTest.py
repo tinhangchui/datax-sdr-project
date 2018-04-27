@@ -6,7 +6,7 @@ except ImportError:  # Python 3
     from tkinter.ttk import *
 
 
-class App(Frame):
+class Report(Frame):
 
     def __init__(self, parent):
         Frame.__init__(self, parent)
@@ -36,7 +36,7 @@ class App(Frame):
 
 def main():
     root = Tk()
-    App(root)
+    Report(root)
     root.mainloop()
 
 if __name__ == '__main__':
