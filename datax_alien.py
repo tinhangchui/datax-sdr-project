@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
+import os
 """
 App Class
 The main app to identify signals!
@@ -161,12 +162,22 @@ class ConnectWindow(tk.Frame):
             print('stop recording')
             sendMsg('LOS')              #send stop recording signal
 
-            if music_identifier.is_music('newfile'):
+            #open the file in ./tmp
+            if os.listdir('./tmp') == []:
+                raise 'Please set gqrx wav output to ./tmp'
+            path = ''
+            for file in os.listdir('./tmp'):
+                if file.endswith(".wav"):
+                    path = './tmp/' + file
+
+            if music_identifier.is_music(path):
                 print("Debug: This is music!")
                 self.controller.report[fm] = True
             else:
                 print("Debug: This is not music!")
                 self.controller.report[fm] = False
+
+            os.remove(path)
 
         #in controller, construct report frame
         self.controller.show_frame("Report")
