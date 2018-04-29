@@ -19,7 +19,7 @@ from sklearn.neighbors import KNeighborsClassifier
 def conv_func(df):
     x=[] # Stores all the frequencies
     y=[] # Stores corresponding power value
-    
+
     for j in range(0,len(df)):
         for i in range(6,4103):
             y.append(float(df[i][j]))
@@ -36,11 +36,15 @@ def get_radio_list(min, max):
     min: min frequency from user
     max: max frequency from user
     """
-    subprocess.run(["rtl_power", "-f", min, "M:", max, "M:1k", "-g", "20", "-i", "10", "-e", "1m", "logfile.csv"])
+    subprocess.run(["rtl_power", "-f", str(min)+"M:"+str(max)+"M:1k", "-g", "20", "-i", "10", "-e", "1m", "logfile.csv"])
     dfs = pd.read_csv("logfile.csv", header=None)
-    knn = joblib.load('findingFMstations_trainedmodel.pkl') 
+    print("debug csv:", dfs)
+    knn = joblib.load('findingFMstations_trainedmodel.pkl')
+    print("debug knn:", knn)
     dfs = conv_func(dfs)
+    print("debug dfs:", dfs)
     y_predict = knn.predict(dfs)
+    print("debug y_predict:", y_predict)
     l=[]
     for i in range(0,len(y_predict)):
         check = int(round(dfs["Frequency"][i]))
