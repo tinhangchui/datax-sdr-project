@@ -21,7 +21,7 @@ from sklearn.externals import joblib
 def conv_func(df):
     x=[] # Stores all the frequencies
     y=[] # Stores corresponding power value
-    
+
     for j in range(0,len(df)):
         for i in range(6,4103):
             y.append(float(df[i][j]))
